@@ -1,0 +1,18 @@
+name: Healthcheck
+
+on:
+  schedule:
+    #will run every 10 mins
+    - cron: "*/10 * * * *"
+
+jobs:
+  ping_the_app:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Proptory healthcheck
+        uses: jtalk/url-health-check-action@v4
+        with:
+          url: ${{ secrets.SITE_URL }}
+          max-attempts: 2
+          retry-delay: 5s
+          retry-all: true
